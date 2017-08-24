@@ -27,6 +27,11 @@ export const findZhiShu = (num) => {
     return str;
 };
 
+/**
+ * 找出书中中质数
+ * @param {Array}arr
+ * @returns {*|Array}
+ */
 
 export const get_primes = (arr) => {
     return arr.filter(function (e, idx) {
