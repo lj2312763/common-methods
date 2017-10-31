@@ -27,10 +27,10 @@
 
 
 
-#prototype 新增原型方法
-###Array.prototype.unique 数组去重
-###Array.prototype.intersect 数组交集
-###Array.prototype.Format 日期格式对象
+# prototype 新增原型方法
+### Array.prototype.unique 数组去重
+### Array.prototype.intersect 数组交集
+### Array.prototype.Format 日期格式对象
 
 
 
