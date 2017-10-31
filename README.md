@@ -2,7 +2,7 @@
 使用ES6语法
 #
 
-## jtools 积累的方法
+## jtools 积累的常规方法
 #### findZhiShu [Function]
 ###### @param{Number}:num   求1-num以内的质数
 ###### @returns{String}   以','分隔开
