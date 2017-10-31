@@ -18,3 +18,18 @@
 ######@returns{undefined|Array} 如果有质数则返回数组，没有则返回undefined
 
 
+
+
+
+#Constrouctor 构造函数对象
+###每一个文件都是一个构造函数，并且一个文件内只有一个构造函数，函数名为文件名
+
+
+
+#prototype 新增原型方法
+###Array.prototype.unique 数组去重
+###Array.prototype.intersect 数组交集
+###Array.prototype.Format 日期格式对象
+
+
+
