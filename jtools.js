@@ -176,6 +176,7 @@ export const unRepeat1 = (arr) => {
 export const unRepeat2 = (arr) => {
 	return Array.from(new Set(arr));
 }
+
 /**
  * 数组去重,使用ES6 新特性filter函数
  * @param {Array}arr:要去重的数组

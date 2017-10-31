@@ -7,15 +7,23 @@
 
 ###### @returns{String}   以','分隔开
 
-#
-
 ### get_primes [Function]
 
-### 参数
+#### 参数
 
 ###### @param{Array}:arr   求1-num以内的质数
 
 ###### @returns{undefined|Array} 如果有质数则返回数组，没有则返回undefined
+
+### makeUID(num)
+
+描述：使用生成函数制作不重复的key或者key，里面包含字母和数字，返回为字符串
+
+### 参数
+### @param{Number}:要创建ID或者key的字符长度
+### 调用方式 var uid=makeUID(16);
+             var key=uid.next();
+
 --------------------------------------------------------------------------
 </br>
 </br>
