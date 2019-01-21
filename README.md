@@ -52,3 +52,5 @@
 
 
 
+#promise 使用方法
+####普通浏览器直接调用 promise-6.1.0.js 即可，IE9以前必须先加载es5-shim.min.js，才可使用

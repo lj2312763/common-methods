@@ -326,3 +326,50 @@ export const convertGroup = (groups) => {
 		}
 	})
 };
+const treeObj = (originObj) => {
+  //对象深拷贝
+  let obj = {};
+  for (const key in originObj) {
+    var val = originObj[key];
+    obj[key] = typeof val === 'object' ? this.treeObj(val) : val;
+  }
+  //对象新增children键值，用于存放子树
+  obj['children'] = [];
+  return obj;
+};
+const toTreeData = (data, attributes) => {
+  let resData = data;
+  let tree = [];
+
+  //找寻根节点
+  for (let i = 0; i < resData.length; i++) {
+
+    if (resData[i][attributes.parentId] === '' || resData[i][attributes.parentId] === null) {
+      tree.push(this.treeObj(resData[i]));
+      resData.splice(i, 1);
+      i--;
+
+    }
+  }
+
+
+  //找寻子树
+  const run = (chiArr) => {
+    if (resData.length !== 0) {
+      for (let i = 0; i < chiArr.length; i++) {
+        for (let j = 0; j < resData.length; j++) {
+          if (chiArr[i][attributes.id] === resData[j][attributes.parentId]) {
+            let obj = this.treeObj(resData[j]);
+            chiArr[i].children.push(obj);
+            resData.splice(j, 1);
+            j--;
+          }
+        }
+        run(chiArr[i].children);
+      }
+    }
+  };
+  run(tree);
+  return tree;
+
+};
