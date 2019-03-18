@@ -331,7 +331,7 @@ const treeObj = (originObj) => {
   let obj = {};
   for (const key in originObj) {
     var val = originObj[key];
-    obj[key] = typeof val === 'object' ? this.treeObj(val) : val;
+    obj[key] = typeof val === 'object' ? treeObj(val) : val;
   }
   //对象新增children键值，用于存放子树
   obj['children'] = [];
