@@ -55,5 +55,5 @@
 #promise 使用方法
 ####普通浏览器直接调用 promise-6.1.0.js 即可，IE9以前必须先加载es5-shim.min.js，才可使用
 
-#mobileTools 是移动端的库或者工具
+##mobileTools 是移动端的库或者工具
 ####vconsole 是移动端的显示开发查看器，可以打开开发者工具，显示console.log
