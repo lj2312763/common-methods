@@ -29,7 +29,7 @@ export const findZhiShu = (num) => {
 ;
 
 /**
- * 找出书中中质数
+ * 找出数组中质数
  * @param {Array}arr
  * @returns {*|Array}
  */
