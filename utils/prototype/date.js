@@ -1,10 +1,10 @@
 /**
- * 日期对象显示格式
+ * @method format 日期对象显示格式
  * @param fmt
  * @return {*}
  * @constructor
  */
-Date.prototype.Format = function (fmt) { //author: meizz
+Date.prototype.format = function (fmt) {
   var o = {
     "M+": this.getMonth() + 1, //月份
     "d+": this.getDate(), //日
