@@ -333,3 +333,72 @@ export const exitFullScreen = () => {
     document.webkitCancelFullScreen();
   }
 }
+/**
+ * 把数字转换为以{separator}分割的字符串
+ * @param number
+ * @param limit
+ * @param separator
+ * @param precise 精确多少位小数
+ * @return {string}
+ */
+export function thousandsSwitch (number, limit = 3, separator = ',', precise = 2) {
+  number = number || '0'
+  const unitArr = [
+    { unit: '', length: 4, suffix: 0 },
+    { unit: '万', length: 8, suffix: 4 },
+    { unit: '亿', length: 12, suffix: 8 },
+    { unit: '兆', length: 16, suffix: 12 }
+  ]
+  let unit = {}
+  let unitIndex = 0
+  // 小于10000，不需要转换单位
+  if (parseInt(number, 10) < 1000) {
+    return `${number}`
+  }
+  // return number.toLocaleString('en-US')
+  const numberStr = `${number}`
+  const temp = numberStr.split('')
+  // 确认单位
+  for (let i = 0, len = unitArr.length; i < len; ++i) {
+    const long = unitArr[i].length
+    // 匹配到单位或者截止到最后一个单位
+    if (temp.length <= long || i === unitArr.length - 1) {
+      unit = unitArr[i]
+      unitIndex = i
+      break
+    }
+  }
+  let result = ''
+  let float = '' // 小数部分
+  temp.reverse()
+  // 去除用单位代替的数字
+  if (unitIndex !== 0) {
+    // 精确位数必须大于0时并且精确的小数位数小于自己本身的位数，才进行精确小数
+    if(precise > 0 && precise <= unit.suffix){
+      float = temp.slice(unit.suffix - precise, unit.suffix)
+      float.reverse()
+      float = parseFloat(float.join(''))
+      //小数只有一位数，并且为0时，不显示小数
+      if(float !== 0){
+        float = '.' + float.toFixed(0)
+      }else {
+        float = ''
+      }
+    }
+    temp.splice(0, unit.suffix)
+  }
+  for (let start = 0; start <= temp.length;) {
+    const end = start + limit
+    const arr = temp.slice(start, end)
+    if (arr.length) {
+      arr.reverse()
+      result = separator + arr.join('') + result
+    }
+    if (arr.length < limit) {
+      result = result.slice(1) + float + (unit.unit || '')
+      break
+    }
+    start += limit
+  }
+  return result
+}
