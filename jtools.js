@@ -402,3 +402,17 @@ export function thousandsSwitch (number, limit = 3, separator = ',', precise = 2
   }
   return result
 }
+
+/**
+ * 评分
+ * @param rate 星星分数
+ * @param max 星星分数
+ */
+export function star (rate, max = 5){
+    if(!max || typeof max !== 'number' || rate > max){
+        return ''
+    }
+    const array1 = new Array(max).fill('★', 0, max)
+    const array2 = new Array(max).fill('☆', 0, max)
+    return array1.concat(array2).join('').slice(max - rate, max * 2 - rate);
+}
