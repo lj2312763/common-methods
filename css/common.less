@@ -1,0 +1,61 @@
+// 事件穿透
+.pierce{
+  pointer-events: none; // 事件可以透过元素穿透到被遮挡的元素
+}
+
+//多行文本溢出处理
+.more {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  work-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; //指定行数
+}
+
+//禁止保存或拷贝图像
+.disabled-copy{
+  -webkit-touch-callout: none;
+}
+
+// 禁止用户选择页面中的文字或图片
+.disabled-select{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+// 移动端0.5px细线
+.scale-line{
+  height: 1px;
+  transform: scaleY(0.5);
+  transform-origin: 50% 100%
+}
+
+*{
+  //pointer-events: none; // 微信浏览器还需要附加该属性才有效
+  // 禁止长按旋转文字
+  user-selecte: none;
+  -webkit-touch-callout: none;
+}
+
+
+// media判断横竖屏（移动端）
+@media screen and (orientation: portrait){
+//  竖屏css
+}
+@media screen and (orientation: landscape){
+//  横屏css
+}
+
+// css三角形
+.triangle{
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-color: transparent transparent red transparent;
+  border-style: dashed dashed solid dashed;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="watch">
+<!--  表盘-->
+    <div class="frame-face"></div>
+    <ul id="minute-marks"></ul>
+    <ul id="digits">
+        <li>3</li>
+        <li>6</li>
+        <li>9</li>
+        <li>12</li>
+    </ul>
+<!--    指针-->
+    <div class="hours-hand"></div>
+    <div class="minutes-hand"></div>
+    <div class="seconds-hand"></div>
+
+    <div class="digital-wrap">
+        <div class="digit-hours"></div>
+        <div class="digit-minutes"></div>
+        <div class="digit-seconds"></div>
+    </div>
+</div>
+
+</body>
+<script>
+    window.onload = function (){
+        let markWrap = document.getElementById('minute-marks');
+
+        for (let index = 0; index < 60; index++){
+            let markItem = document.createElement('li');
+            markItem.style.cssText = "transform:rotate("+ index * 6 +"deg) translateY(-12.7em)";
+            if(index % 5 === 0){
+                markItem.style.width = '0.3em';
+                markItem.style.height = '1em';
+            }
+            markWrap.appendChild(markItem)
+        }
+    }
+
+    setInterval(function (){
+        var time = new Date();
+        var hour = time.getHours();
+        var minute = time.getMinutes();
+        var second = time.getSeconds();
+        var hournum;
+        if(hour > 12){
+            hournum = ((hour - 12) + minute / 60) * 30;
+        }else {
+            hournum = (hour + minute / 60 * 100) * 30;
+        }
+        var minnum = (minute + second / 60) * 6 + second / 60;
+        var sennum = second * 6;
+        document.getElementsByClassName('hours-hand')[0].style.transform = 'rotate(' + hournum + 'deg)';
+        document.getElementsByClassName('minutes-hand')[0].style.transform = 'rotate(' + minnum + 'deg)';
+        document.getElementsByClassName('seconds-hand')[0].style.transform = 'rotate(' + sennum + 'deg)';
+    }, 100)
+</script>
+</html>
