@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box1, #box2 {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            color: #fff;
+            position: relative;
+            top: 800px;
+        }
+
+        #box1 {
+            top: 500px;
+        }
+
+        #box2 {
+            top: 0;
+            transition: top 5s;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            position: relative;
+        }
+        #resize-box{
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            margin-top: 20px;
+            transition: width 2s;
+        }
+    </style>
+</head>
+<body>
+<div id="box1"></div>
+<div id="box2"></div>
+
+<div id="mutation-box" class="box">
+    <button>光</button>
+</div>
+
+<div id="resize-box"></div>
+
+
+<button id="performance-btn">Measure</button>
+<img src="https://p9-passport.byteacctimg.com/img/user-avatar/4e9e751e2b32fb8afbbf559a296ccbf2~300x300.image" />
+
+
+</body>
+<script>
+
+
+    const observer = {
+        run: function (){
+            // this.mutationObserver();
+
+            // 监听大小改变事件
+            // this.resizeObserver();
+
+            // 监听性能
+            this.performanceObserver();
+
+        },
+        getEle: function (selector){
+            return document.querySelector(selector)
+        },
+        intersectionObserver: function () {
+            const intersectionObserver = new IntersectionObserver(function (entries) {
+                console.log('info:');
+                entries.forEach(item => {
+                    console.log(item.target, item.intersectionRatio)
+                }, {threshold: [0.5, 1]})
+            })
+            intersectionObserver.observe(document.querySelector('#box1'))
+            intersectionObserver.observe(document.querySelector('#box2'))
+        },
+        mutationObserver: function (){
+            const box = document.getElementById('mutation-box');
+            setTimeout(()=>{
+                box.style.background = 'red'
+            }, 2000)
+
+            setTimeout(()=>{
+                const dom = document.createElement('button');
+                dom.textContent = '东东东';
+                box.appendChild(dom)
+            }, 2000)
+
+            setTimeout(()=> {
+                document.querySelectorAll('button')[0].remove();
+            }, 5000)
+
+            const ab = []
+            const mutationObserver = new MutationObserver((mutationList) => {
+                console.log(mutationList[0])
+                if(mutationList[0].removedNodes.length){
+                    ab.push(mutationList[0].removedNodes[0])
+                    const dom = document.createElement('button');
+                    dom.textContent = '光2';
+                    box.appendChild(dom)
+                }
+            })
+
+            console.log('MutationObserver', MutationObserver)
+            mutationObserver.observe(box, { attributes: true,
+            childList: true})
+
+        },
+        resizeObserver: function () {
+            const box = this.getEle('#resize-box');
+            setTimeout(()=>{
+                box.style.width = '200px';
+            }, 3000)
+            const resizeObserver = new ResizeObserver((entries)=>{
+                console.log('当前大小', entries);
+            })
+            resizeObserver.observe(box);
+        },
+        performanceObserver: function (){
+            const box = this.getEle('#performance-btn');
+
+            box.addEventListener('click', function (){
+                performance.measure('button clicked');
+            })
+
+            const performanceObserver = new PerformanceObserver((list)=>{
+                list.getEntries().forEach(entry=>{
+                    console.log(entry); // 上报
+                })
+            })
+
+            performanceObserver.observe({ entryTypes: [ 'resource', 'mark', 'measure' ] });
+            performance.mark('registered-observer');
+        },
+    }
+    observer.run();
+</script>
+</html>

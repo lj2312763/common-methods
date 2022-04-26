@@ -416,3 +416,51 @@ export function star (rate, max = 5){
     const array2 = new Array(max).fill('☆', 0, max)
     return array1.concat(array2).join('').slice(max - rate, max * 2 - rate);
 }
+
+/**
+ * 字节转换
+ * @param bytes {Number} 要转换的字节数
+ * @param maxUnit { String }最大的限制单位
+ * @return {string}
+ */
+export function byteConvert (bytes, maxUnit) {
+    if (isNaN(bytes)) {
+        return '';
+    }
+    //在这里定义了常用的字节，字节、千字节、兆字节、吉字节、太字节、拍字节、艾字节、Z字节、Y字节
+    var symbols = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    var exp = Math.floor(Math.log(bytes) / Math.log(2));
+    if (exp < 1) {
+        exp = 0;
+    }
+    var i = Math.floor(exp / 10);
+    bytes /= Math.pow(2, 10 * i);
+    if (bytes.toString().length > bytes.toFixed(2).toString().length) {
+        bytes = bytes.toFixed(2);
+    }
+    return bytes + ' ' + symbols[i];
+}
+
+/** 字节转换为指定单位，没有达到指定单位时，则进行自动转换
+* @param num {Number} 文件大小 单位为 字节 b
+* @param unit {String} 要输出的转换单位
+*/
+export const byteConvert = (num, unit = 'MB') => {
+    const switchArr = ['B', 'KB', 'MB', 'GB']
+    let index = switchArr.findIndex((e) => e === unit.toUpperCase())
+    // 没有找到对应的单位时
+    if (index === -1) {
+        return
+    } else if (index === 0) {
+        return `${num}${switchArr[0]}`
+    }
+    let newNum = num
+    for (let i = 0; i < index; ++i) {
+        newNum = (newNum / 1024)
+        if (newNum < 1000) {
+            index = i + 1
+            break
+        }
+    }
+    return `${parseInt(newNum, 10) === newNum ? parseInt(newNum, 10) : newNum.toFixed(2)}${switchArr[index]}`
+}

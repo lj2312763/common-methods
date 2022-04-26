@@ -59,3 +59,22 @@
   border-color: transparent transparent red transparent;
   border-style: dashed dashed solid dashed;
 }
+
+// 箭头
+.arrows{
+  position: relative;
+  &:after, &:before {
+    border: 10px solid transparent;
+    border-left: 10px solid #fff;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    right: -20px;
+    content: ' '
+  }
+  &:before {
+    border-left-color: #f00;
+    right: -21px;
+  }
+}

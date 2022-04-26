@@ -35,3 +35,19 @@ Array.prototype.intersect = function (b) {
   }
   return result.unique ? result.unique() : result;
 };
+
+/**
+ * @method groupBy 数组分类
+ * @param {Function}callback: 执行回调
+ * @return {Object}：返回结果，分类之后结果
+ */
+Array.prototype.groupBy = function groupBy(callback) {
+  return this.reduce(function (acc, obj) {
+    let key = callback(obj);
+    if (!acc[key]) {
+      acc[key] = []
+    }
+    acc[key].push(obj)
+    return acc
+  }, {})
+};
