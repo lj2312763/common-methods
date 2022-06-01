@@ -51,3 +51,45 @@ Array.prototype.groupBy = function groupBy(callback) {
     return acc
   }, {})
 };
+
+/**
+ * 优势：只循环一次，借助 对象的引用，快速组合tree
+ * 劣势：会改变原始数据
+ * 数组转换tree
+ * @return {*[]}
+ */
+Array.prototype.arrayToTree = function () {
+    const result = [];   // 存放结果集
+    const itemMap = {};  //
+    const items = this;
+    for (const item of items) {
+        const id = item.id;
+        const pid = item.pid;
+
+        if (!itemMap[id]) {
+            itemMap[id] = {
+                children: [],
+            }
+        }
+
+        itemMap[id] = {
+            ...item,
+            children: itemMap[id]['children']
+        }
+
+        const treeItem =  itemMap[id];
+
+        if (pid === 0) {
+            result.push(treeItem);
+        } else {
+            if (!itemMap[pid]) {
+                itemMap[pid] = {
+                    children: [],
+                }
+            }
+            itemMap[pid].children.push(treeItem)
+        }
+
+    }
+    return result;
+}
