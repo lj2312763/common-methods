@@ -412,9 +412,10 @@ export function star (rate, max = 5){
     if(!max || typeof max !== 'number' || rate > max){
         return ''
     }
-    const array1 = new Array(max).fill('★', 0, max)
-    const array2 = new Array(max).fill('☆', 0, max)
-    return array1.concat(array2).join('').slice(max - rate, max * 2 - rate);
+    const _rate = Math.floor(rate);
+    const array1 = new Array(_rate).fill('★')
+    const array2 = new Array(max - _rate).fill('☆')
+    return array1.concat(array2).join('');
 }
 
 /**
@@ -423,7 +424,7 @@ export function star (rate, max = 5){
  * @param maxUnit { String }最大的限制单位
  * @return {string}
  */
-export function byteConvert (bytes, maxUnit) {
+export function byteConvert2 (bytes) {
     if (isNaN(bytes)) {
         return '';
     }
